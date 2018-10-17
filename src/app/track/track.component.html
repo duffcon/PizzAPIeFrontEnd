@@ -1,3 +1,96 @@
-<p>
-  track works!
-</p>
+<div class="container-fluid">
+	<div *ngIf="!orderFound" class="row justify-content-center">
+
+		
+			<form [formGroup]="trackerForm">
+
+				<div style="padding: 10px;">
+				</div>
+
+				<div style="text-align: center;">
+					<p class="h4">Dude Where's My Order:</p>
+				</div>
+
+
+				<div class="form-group input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Order #</span></div>
+					<input type="text" formControlName="ordernumber" class="form-control"/>
+				</div>
+
+
+				<div class="input-group form-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Phone #</span></div>
+					<input type="tel" formControlName="phone" placeholder="123-123-1234" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+					<div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+						<div *ngIf="f.phone.errors.required">Field required.</div>
+						<div *ngIf="f.phone.errors.minlength || f.phone.errors.maxlength">Format: 123-123-1234</div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<button class="btn btn-secondary" (click)="onSubmit()">Track</button>
+				</div>
+
+			</form>
+	
+	</div>
+	<div *ngIf="orderFound;" class="row justify-content-center">
+
+		<div class="row justify-content-center">
+			<div class=" col-m-1">
+
+				<div style="text-align: center;">
+					<span style="font-size: 20px; font-family: sans-serif;">
+						<strong> Your Order, John: </strong>
+					</span>
+				</div>
+				<table class="table">
+
+					<br />
+					<tr>
+						<td>Order #:</td>
+						<td>11355</td>
+					</tr>
+
+					<!--<tr>
+						<td>Order Time:</td>
+						<td>{{new Date().toLocaleString();}}</td>
+					</tr>-->
+
+					<tr>
+						<td>Phone:</td>
+						<td>555-867-5309</td>
+					</tr>
+
+					<tr>
+						<td>Size:</td>
+						<td>Medium</td>
+					</tr>
+
+					<tr>
+						<td>Sauce:</td>
+						<td>Tomato</td>
+					</tr>
+
+					<tr>
+						<td>Cheese:</td>
+						<td>Mozzarella</td>
+					</tr>
+
+					<tr>
+						<td>Topping:</td>
+						<td>Mushrooms</td>
+					</tr>
+					<tr>
+						<td>Quantity:</td>
+						<td>2</td>
+					</tr>
+
+
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+</div>

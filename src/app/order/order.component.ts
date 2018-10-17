@@ -13,11 +13,15 @@ export class OrderComponent implements OnInit {
 	public orderForm: FormGroup;
 	public submitted = false;
 	public price: number = 0;
+	
+
 
 	constructor(private formBuilder: FormBuilder, private router: Router) {
 	}
 
 	ngOnInit() {
+	
+		
 		this.orderForm = this.formBuilder.group({
 			name: ['John', [Validators.required, Validators.minLength(4)]],
 			phone: ['555-555-5555', [Validators.required]],
@@ -46,7 +50,7 @@ export class OrderComponent implements OnInit {
 		if (this.orderForm.invalid) {
 			return;
 		}
-		//this.router.navigate(["track"]);
+		this.router.navigate(["track"], { queryParams: { num: 12345 }});
 	}
 
 	get f() { return this.orderForm.controls; }

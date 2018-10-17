@@ -120,15 +120,8 @@ export class AppModule { }
 </div>
 ```
 
-Import needed components
-```ts
-//order.component.ts
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { TrackComponent } from '../track/track.component';
-```
 
-Pizza Data Types
+
 ```ts
 //order.component.ts
 import { Component, OnInit } from '@angular/core';
@@ -213,3 +206,179 @@ export class PizzaOptions {
 
 
 ```
+
+
+```html
+//order.components.html
+
+<div class="container-fluid">
+
+	<div style="padding: 10px;">
+	</div>
+
+	<div class="row justify-content-center">
+		<form [formGroup]="orderForm">
+
+			<div style="text-align: center;">
+				<p class="h3"> Order:</p>
+			</div>
+
+
+			<div class="input-group form-group">
+				<div class="input-group-prepend"> <span class="input-group-text">Name</span></div>
+				<input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+			</div>
+
+			<div class="input-group form-group">
+				<div class="input-group-prepend"> <span class="input-group-text">Phone</span></div>
+				<input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+			</div>
+
+
+			<div class="input-group form-group">
+				<div class="input-group-prepend"> <span class="input-group-text">Size</span></div>
+				<select formControlName="size" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.size.errors }">
+					<option *ngFor="let e of pizzaOptions.sizes;" [ngValue]="e"> {{e.id}} </option>
+				</select>
+			</div>
+
+			<div class="input-group form-group">
+				<div class="input-group-prepend"> <span class="input-group-text">Sauce</span></div>
+				<select formControlName="sauce" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sauce.errors }">
+					<option *ngFor="let e of pizzaOptions.sauces;" [ngValue]="e"> {{e.id}} </option>
+				</select>
+			</div>
+
+
+			<div class="input-group form-group">
+				<div class="input-group-prepend"> <span class="input-group-text">Cheese</span></div>
+				<select formControlName="cheese" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cheese.errors }">
+					<option *ngFor="let e of pizzaOptions.cheeses;" [ngValue]="e"> {{e.id}} </option>
+				</select>
+			</div>
+
+
+			<div class="input-group form-group">
+				<div class="input-group-prepend"> <span class="input-group-text">Topping</span></div>
+				<select formControlName="topping" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.topping.errors }">
+					<option *ngFor="let e of pizzaOptions.toppings;" [ngValue]="e"> {{e.id}} </option>
+				</select>
+			</div>
+
+			<div class="input-group form-group">
+				<div class="input-group-prepend"> <span class="input-group-text">Quantity</span></div>
+				<input type="number" min="1" max="50" formControlName="quantity" class="form-control" />
+			</div>
+
+			<div class="input-group for-group">
+				<div style="padding-right:10em;">
+					<button class="btn btn-secondary" (click)="onSubmit()">Submit</button>
+				</div>
+
+				<div>
+					<label class="price">Total: ${{price}} </label>
+				</div>
+			</div>
+
+
+		</form>
+	</div>
+
+</div>
+```
+
+
+```
+```
+
+
+
+
+```ts
+//tracker.component.ts
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-track',
+  templateUrl: './track.component.html',
+  styleUrls: ['./track.component.css']
+})
+
+
+export class TrackComponent implements OnInit {
+	public trackerForm: FormGroup;
+	public submitted = false;
+	public orderFound = false;
+
+	constructor(private formBuilder: FormBuilder, private route: ActivatedRoute) {
+
+	}
+
+	ngOnInit() {
+		
+		this.route.queryParams.subscribe(val => {
+
+			if (val.hasOwnProperty("num")) {
+				this.orderFound = true;
+			}
+			else {
+				this.orderFound = false;
+			}
+		});
+
+		this.trackerForm = this.formBuilder.group({
+			ordernumber: ['12345'],
+			phone: ['555-555-5555', [Validators.required, Validators.pattern('^[0-9+-]+[0-9+-]+[0-9]$'), Validators.minLength(12), Validators.maxLength(12)]]
+		}, { updateOn: 'blur' });
+
+	}
+
+	get f() { return this.trackerForm.controls; }
+
+	onSubmit() {
+		this.submitted = true;
+
+		if (this.trackerForm.invalid) {
+			this.orderFound = false;
+			return;
+		}
+		this.orderFound = true;
+	}
+}
+```
+
+
+
+
+```
+```
+
+
+
+
+```
+```
+
+
+
+
+```
+```
+
+
+
+
+```
+```
+
+
+
+
+```
+```
+
+
+
+
