@@ -1,0 +1,79 @@
+<p>
+	<div class="container-fluid">
+
+		<div class="row col-md-4">
+			<br />
+		</div>
+
+		<div class="row justify-content-center">
+			<form [formGroup]="orderForm">
+
+				<div style="text-align: center;">
+					<span style="font-size: 20px; font-family: sans-serif;">
+						<strong> Order Now: </strong>
+					</span>
+				</div>
+
+
+				<div class="input-group form-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Name</span></div>
+					<input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+				</div>
+
+				<div class="input-group form-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Phone</span></div>
+					<input type="text" formControlName="phone" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+				</div>
+
+
+				<div class="input-group form-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Size</span></div>
+					<select formControlName="size" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.size.errors }">
+						<option *ngFor="let e of pizzaOptions.sizes;" [ngValue]="e" > {{e.id}} </option>
+					</select>
+				</div>
+
+				<div class="input-group form-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Sauce</span></div>
+					<select formControlName="sauce" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.sauce.errors }">
+						<option *ngFor="let e of pizzaOptions.sauces;" [ngValue]="e"> {{e.id}} </option>
+					</select>
+				</div>
+
+
+				<div class="input-group form-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Cheese</span></div>
+					<select formControlName="cheese" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.cheese.errors }">
+						<option *ngFor="let e of pizzaOptions.cheeses;" [ngValue]="e"> {{e.id}} </option>
+					</select>
+				</div>
+
+
+				<div class="input-group form-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Topping</span></div>
+					<select formControlName="topping" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.topping.errors }">
+						<option *ngFor="let e of pizzaOptions.toppings;" [ngValue]="e"> {{e.id}} </option>
+					</select>
+				</div>
+
+				<div class="input-group form-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Quantity</span></div>
+					<input type="number" min="1" max="50" formControlName="quantity" class="form-control" />
+				</div>
+
+				<div class="input-group for-group">
+					<div style="padding-right:10em;">
+						<button class="btn btn-secondary" (click)="onSubmit()">Submit</button>
+					</div>
+
+					<div>
+						<label class="price">Total: ${{price}} </label>
+					</div>
+				</div>
+
+
+			</form>
+		</div>
+
+	</div>
+
