@@ -352,7 +352,8 @@ export class TrackComponent implements OnInit {
 
 
 
-```
+```bash
+ng build --prod --output-path docs --base-href PizzAPIeFrontEnd
 ```
 
 
